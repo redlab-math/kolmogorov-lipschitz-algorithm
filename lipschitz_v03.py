@@ -2,7 +2,7 @@
 Kolmogorov Lipschitz Function Algorithm
 ====================================================================================
 
-Author: Optimized implementation preserving Jonas Actor's original algorithm
+Optimized implementation preserving Jonas Actor's original algorithm
 """
 
 import random
@@ -21,8 +21,8 @@ import numpy as np
 
 # Parse arguments
 parser = argparse.ArgumentParser(
-    description='Sprecher Lipschitz Functions - MPFR + NumPy Version (Full Graphics)',
-    epilog='Pure MPFR + NumPy implementation with ALL graphics restored',
+    description='Lipschitz Functions',
+    epilog='MPFR + NumPy implementation',
     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument('--dim', type=int, default=2, help='The spatial dimension')
 parser.add_argument('--J', type=int, default=8, help='Number of iterations')
@@ -38,9 +38,8 @@ args = parser.parse_args()
 
 # Configure MPFR precision
 gmpy2.get_context().precision = args.prec
-print(f"🚀 MPFR precision set to {args.prec} bits")
+print(f"MPFR precision set to {args.prec} bits")
 
-# MPFR helper function to replace mp.mpf
 def mpfr(value):
     """Create MPFR number - direct replacement for mp.mpf"""
     return gmpy2.mpfr(str(value))
@@ -126,7 +125,7 @@ class BT(object):
         self.leafTowns = IntervalTree()
         self.leafGaps = IntervalTree()
 
-# Global parameters (MPFR versions)
+# Global parameters
 n = args.dim
 J = args.J
 Q = mpfr(2*n + 1)  # MPFR instead of mp.mpf
@@ -335,7 +334,7 @@ def refine(j, B):
             print('pt_towns', pt_towns)
             print('nh', num_h)
         if num_h > 2:
-            print("NOT RIGHT NUMBER OF BREAKS!")
+            print("NOT RIGHT NUMBER OF BREAKS")
             return
         if num_h > 0:
             gap_left, gap_right, shifts = get_border_towns(town_tree, pt, pt_towns)
@@ -494,7 +493,7 @@ def refine(j, B):
 
 def fullRefine(J):
     print()
-    print("🚀 Setting up Sprecher Town System (MPFR + NumPy Version - Full Graphics)")
+    print("Setting up Sprecher Town System")
 
     domain = IntervalTree()
     start = mpfr(-1)  # MPFR instead of mp.mpf
@@ -519,9 +518,6 @@ def fullRefine(J):
     return B
 
 def plotPhi_func(B):
-    """
-    Replacement for mp.splot - creates 3D surface plots using matplotlib
-    """
     assert P == 2
     print("Creating 3D Phi surface plots...")
 
@@ -556,7 +552,6 @@ def plotPhi_func(B):
         plt.show()
 
 def constructInnerFunctionplotting(B):
-    """Complete plotting function - all graphics restored"""
     if draw == 1 or draw == 2:
         print("Displaying final town structure...")
         plottowns(B.leafTowns)
@@ -577,7 +572,7 @@ def constructInnerFunctionplotting(B):
 
 def constructInnerFunction():
     print("=" * 70)
-    print("ACTOR ALGORITHM")
+    print("LIPSCHITZ ALGORITHM")
     print("=" * 70)
     print(f"MPFR Precision: {gmpy2.get_context().precision} bits")
     print(f"Matrix Solver: NumPy float64")
@@ -596,7 +591,7 @@ def constructInnerFunction():
         print("Displaying binary tree visualization...")
         visualizeBT(B)
 
-    print("\n✅ Algorithm completed successfully")
+    print("\nAlgorithm completed successfully")
     return B
 
 if __name__ == "__main__":
